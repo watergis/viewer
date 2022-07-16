@@ -4,6 +4,8 @@ Everything you need to build a Svelte project, powered by [`create-svelte`](http
 
 This is a simple viewer to visualise third party Maplibre Style JSON.
 
+![demo](demo.gif)
+
 ## How to use it
 
 ```zsh

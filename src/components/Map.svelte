@@ -81,6 +81,8 @@
 			const res = await fetch(url);
 			const styleJSON = await res.json();
 
+			$map.remove();
+
 			const tmpMap = new Map({
 				container: mapContainer,
 				style: styleJSON,

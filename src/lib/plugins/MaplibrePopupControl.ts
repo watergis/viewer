@@ -38,25 +38,25 @@ class PopupManager {
 		} else {
 			mainContent = `
       <div class="maplibregl-popup-tab_wrap">
-      ${this.contents
-				.map((s) => {
-					const index = this.contents.indexOf(s) + 1;
+      ${[...Array(this.contents.length).keys()]
+				.map((index) => {
+					index += 1;
 					const checked = index === 0 ? 'checked' : '';
 					return `<input id="maplibregl-popup-tab${index}" type="radio" name="tab_btn" ${checked}>`;
 				})
 				.join('')}
       <div class="maplibregl-popup-tab_area">
-      ${this.contents
-				.map((s) => {
-					const index = this.contents.indexOf(s) + 1;
+      ${[...Array(this.contents.length).keys()]
+				.map((index) => {
+					index += 1;
 					return `<label class="maplibregl-popup-tab${index}_label" for="maplibregl-popup-tab${index}">${index}</label>`;
 				})
 				.join('')}
       </div>
       <div class="maplibregl-popup-panel_area">
       ${this.contents
-				.map((s) => {
-					const index = this.contents.indexOf(s) + 1;
+				.map((s, index) => {
+					index += 1;
 					return `<div id="maplibregl-popup-panel${index}" class="maplibregl-popup-tab_panel">${s}</div>`;
 				})
 				.join('')}

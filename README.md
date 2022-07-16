@@ -1,6 +1,18 @@
-# svelte-maplibre-boilerplate
+# viewer
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+
+This is a simple viewer to visualise third party Maplibre Style JSON.
+
+## How to use it
+
+```zsh
+https://watergis.github.io/viewer?style={Your StyleJSON URL}
+```
+
+For example,
+
+open [https://watergis.github.io/viewer?style=https://narwassco.github.io/mapbox-stylefiles/unvt/style.json](https://watergis.github.io/viewer?style=https://narwassco.github.io/mapbox-stylefiles/unvt/style.json).
 
 ## Creating a project
 

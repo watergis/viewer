@@ -2,17 +2,16 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="description" content="" />
 		<link rel="icon" href="/viewer/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta http-equiv="content-security-policy" content="">
-	<link rel="stylesheet" href="/viewer/_app/assets/index-a6b62ae5.css">
-	<link rel="modulepreload" href="/viewer/_app/start-07cec51c.js">
-	<link rel="modulepreload" href="/viewer/_app/chunks/index-bb625cf2.js">
-	<link rel="modulepreload" href="/viewer/_app/chunks/preload-helper-37be80e4.js">
-	<link rel="modulepreload" href="/viewer/_app/layout.svelte-90c6b68a.js">
-	<link rel="modulepreload" href="/viewer/_app/pages/index.svelte-d9d3a37a.js">
-	<link rel="modulepreload" href="/viewer/_app/chunks/index-af9b21a0.js">
+	<link rel="stylesheet" href="/viewer/_app/immutable/assets/index-475cd602.css">
+	<link rel="modulepreload" href="/viewer/_app/immutable/start-61d951bd.js">
+	<link rel="modulepreload" href="/viewer/_app/immutable/chunks/index-826da4b2.js">
+	<link rel="modulepreload" href="/viewer/_app/immutable/chunks/preload-helper-fc38b599.js">
+	<link rel="modulepreload" href="/viewer/_app/immutable/layout.svelte-9e9c620e.js">
+	<link rel="modulepreload" href="/viewer/_app/immutable/pages/index.svelte-f53e639e.js">
+	<link rel="modulepreload" href="/viewer/_app/immutable/chunks/index-7c4b4320.js">
 	</head>
 	<style type="text/css">
 		html,
@@ -28,13 +27,15 @@
 		<div>
 
 
+<sveltekit:head><title>Sveltekit Maplibre boilerplate</title></sveltekit:head>
+
 <div><div class="map svelte-1jgeeqp" id="map"></div></div>
 
 
-		<script type="module" data-hydrate="pt36sh">
-		import { start } from "/viewer/_app/start-07cec51c.js";
+		<script type="module" data-sveltekit-hydrate="ibyhyt">
+		import { start } from "/viewer/_app/immutable/start-61d951bd.js";
 		start({
-			target: document.querySelector('[data-hydrate="pt36sh"]').parentNode,
+			target: document.querySelector('[data-sveltekit-hydrate="ibyhyt"]').parentNode,
 			paths: {"base":"/viewer","assets":"/viewer"},
 			session: {},
 			route: true,
@@ -43,10 +44,7 @@
 			hydrate: {
 				status: 200,
 				error: null,
-				nodes: [
-					import("/viewer/_app/layout.svelte-90c6b68a.js"),
-						import("/viewer/_app/pages/index.svelte-d9d3a37a.js")
-				],
+				nodes: [0, 2],
 				params: {},
 				routeId: ""
 			}

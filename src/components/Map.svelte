@@ -9,15 +9,18 @@
 	} from 'maplibre-gl';
 	import { page } from '$app/stores';
 	import { map } from '$lib/stores';
-	import { MaplibreLegendControl } from '@watergis/maplibre-gl-legend';
-	import MaplibrePopupControl from '$lib/plugins/MaplibrePopupControl';
+	import AttributePopupControl from '@watergis/svelte-maplibre-attribute-popup';
+	import { MapExportControl } from '@watergis/svelte-maplibre-export';
+	import { MenuControl } from '@watergis/svelte-maplibre-menu';
+	import LayerListPanel from './LayerListPanel.svelte';
 
 	const VITE_MAPTILER_KEY = import.meta.env.VITE_MAPTILER_KEY;
 
 	let mapContainer: HTMLDivElement;
+	let isMenuShown = true;
 
 	onMount(async () => {
-		const tmpMap = new Map({
+		$map = new Map({
 			container: mapContainer,
 			style: `https://api.maptiler.com/maps/streets/style.json?key=${VITE_MAPTILER_KEY}`,
 			center: [37.138, 0.414],
@@ -25,15 +28,7 @@
 			hash: false,
 			attributionControl: false
 		});
-		map.update(() => tmpMap);
 
-		tmpMap.on('load', async () => {
-			await addControls();
-			await loadStyle();
-		});
-	});
-
-	const addControls = async () => {
 		$map.addControl(new NavigationControl({}), 'top-right');
 		$map.addControl(
 			new GeolocateControl({
@@ -45,80 +40,59 @@
 		$map.addControl(new ScaleControl({ maxWidth: 80, unit: 'metric' }), 'bottom-left');
 		$map.addControl(new AttributionControl({ compact: true }), 'bottom-right');
 
-		const { MaplibreExportControl } = await import('@watergis/maplibre-gl-export');
-		$map.addControl(
-			new MaplibreExportControl({
-				Crosshair: true,
-				PrintableArea: true
-			}),
-			'top-right'
-		);
-
-		$map.addControl(
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			new MaplibreLegendControl(
-				{},
-				{
-					showDefault: true,
-					showCheckbox: true,
-					reverseOrder: true,
-					onlyRendered: true
-				}
-			),
-			'bottom-left'
-		);
-
-		const layerList = $map.getStyle().layers.map((layer) => {
-			return layer.id;
+		$map.on('load', async () => {
+			await loadStyle();
 		});
-		$map.addControl(new MaplibrePopupControl(layerList));
-	};
+	});
 
 	const loadStyle = async () => {
 		const url = $page.url.searchParams.get('style');
 		if (url) {
 			const res = await fetch(url);
 			const styleJSON = await res.json();
-
-			$map.remove();
-
-			const tmpMap = new Map({
-				container: mapContainer,
-				style: styleJSON,
-				center: $map.getCenter(),
-				zoom: $map.getZoom(),
-				bearing: $map.getBearing(),
-				pitch: $map.getPitch(),
-				hash: true,
-				attributionControl: false
-			});
-			if (styleJSON.zoom) tmpMap.setZoom(styleJSON.zoom);
-			if (styleJSON.bearing) tmpMap.setBearing(styleJSON.bearing);
-			if (styleJSON.pitch) tmpMap.setPitch(styleJSON.pitch);
-			if (styleJSON.center) tmpMap.setCenter(styleJSON.center);
-
-			map.update(() => tmpMap);
-			tmpMap.on('load', async () => {
-				await addControls();
+			$map.setStyle(styleJSON);
+			$map.once('styledata', () => {
+				if (styleJSON.zoom) $map.setZoom(styleJSON.zoom);
+				if (styleJSON.bearing) $map.setBearing(styleJSON.bearing);
+				if (styleJSON.pitch) $map.setPitch(styleJSON.pitch);
+				if (styleJSON.center) $map.setCenter(styleJSON.center);
+				$map.fire('style:change');
 			});
 		}
 	};
 </script>
 
-<div class="map" id="map" bind:this={mapContainer} />
+<MenuControl bind:map={$map} position={'top-left'} bind:isMenuShown>
+	<div slot="primary">
+		<LayerListPanel bind:map={$map} />
+	</div>
+	<div slot="secondary">
+		<div class="map" id="map" bind:this={mapContainer} />
+		<AttributePopupControl bind:map={$map} />
+		<MapExportControl
+			bind:map={$map}
+			showPrintableArea={true}
+			showCrosshair={true}
+			position="top-right"
+		/>
+	</div>
+</MenuControl>
 
-<style>
+<style lang="scss">
 	@import 'maplibre-gl/dist/maplibre-gl.css';
-	@import '@watergis/maplibre-gl-export/css/styles.css';
-	@import '@watergis/maplibre-gl-legend/css/styles.css';
-	@import '$lib/plugins/MaplibrePopupControl.css';
 
 	.map {
 		position: absolute;
 		top: 0;
 		bottom: 0;
+		margin: 0;
+		padding: 0;
 		width: 100%;
+		height: 100%;
 		z-index: 1;
+
+		:global(table) {
+			width: 100%;
+		}
 	}
 </style>

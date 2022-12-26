@@ -5,13 +5,10 @@
 		<link rel="icon" href="/viewer/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta http-equiv="content-security-policy" content="">
-	<link rel="stylesheet" href="/viewer/_app/immutable/assets/index-475cd602.css">
-	<link rel="modulepreload" href="/viewer/_app/immutable/start-61d951bd.js">
-	<link rel="modulepreload" href="/viewer/_app/immutable/chunks/index-826da4b2.js">
-	<link rel="modulepreload" href="/viewer/_app/immutable/chunks/preload-helper-fc38b599.js">
-	<link rel="modulepreload" href="/viewer/_app/immutable/layout.svelte-9e9c620e.js">
-	<link rel="modulepreload" href="/viewer/_app/immutable/pages/index.svelte-f53e639e.js">
-	<link rel="modulepreload" href="/viewer/_app/immutable/chunks/index-7c4b4320.js">
+		<link rel="modulepreload" href="/viewer/_app/immutable/start-3edfcbcd.js">
+		<link rel="modulepreload" href="/viewer/_app/immutable/chunks/index-ac72d322.js">
+		<link rel="modulepreload" href="/viewer/_app/immutable/chunks/singletons-6d1f4c3b.js">
+		<link rel="modulepreload" href="/viewer/_app/immutable/chunks/preload-helper-41c905a7.js">
 	</head>
 	<style type="text/css">
 		html,
@@ -25,30 +22,15 @@
 	</style>
 	<body>
 		<div>
+		<script type="module" data-sveltekit-hydrate="45h">
+			import { start } from "/viewer/_app/immutable/start-3edfcbcd.js";
 
-
-<sveltekit:head><title>Sveltekit Maplibre boilerplate</title></sveltekit:head>
-
-<div><div class="map svelte-1jgeeqp" id="map"></div></div>
-
-
-		<script type="module" data-sveltekit-hydrate="ibyhyt">
-		import { start } from "/viewer/_app/immutable/start-61d951bd.js";
-		start({
-			target: document.querySelector('[data-sveltekit-hydrate="ibyhyt"]').parentNode,
-			paths: {"base":"/viewer","assets":"/viewer"},
-			session: {},
-			route: true,
-			spa: false,
-			trailing_slash: "never",
-			hydrate: {
-				status: 200,
-				error: null,
-				nodes: [0, 2],
-				params: {},
-				routeId: ""
-			}
-		});
-	</script></div>
+			start({
+				env: {},
+				paths: {"base":"/viewer","assets":"/viewer"},
+				target: document.querySelector('[data-sveltekit-hydrate="45h"]').parentNode,
+				version: "1672055564370"
+			});
+		</script></div>
 	</body>
 </html>

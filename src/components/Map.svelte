@@ -19,13 +19,35 @@
 	let mapContainer: HTMLDivElement;
 	let isMenuShown = true;
 
+	let showTileBoundaries = true;
+	let showCollisionBoxes = false;
+	let showPadding = false;
+
+	$: {
+		if ($map) {
+			$map.showTileBoundaries = showTileBoundaries;
+		}
+	}
+
+	$: {
+		if ($map) {
+			$map.showCollisionBoxes = showCollisionBoxes;
+		}
+	}
+
+	$: {
+		if ($map) {
+			$map.showPadding = showPadding;
+		}
+	}
+
 	onMount(async () => {
 		$map = new Map({
 			container: mapContainer,
 			style: `https://api.maptiler.com/maps/streets/style.json?key=${VITE_MAPTILER_KEY}`,
 			center: [37.138, 0.414],
 			zoom: 4,
-			hash: false,
+			hash: true,
 			attributionControl: false
 		});
 
@@ -67,7 +89,22 @@
 		<LayerListPanel bind:map={$map} />
 	</div>
 	<div slot="secondary">
-		<div class="map" id="map" bind:this={mapContainer} />
+		<div class="map" id="map" bind:this={mapContainer}>
+			<div class="settings">
+				<label>
+					<input type="checkbox" bind:checked={showTileBoundaries} />
+					Show Tile Boundaries
+				</label>
+				<label>
+					<input type="checkbox" bind:checked={showCollisionBoxes} />
+					Show Collision Boxes
+				</label>
+				<label>
+					<input type="checkbox" bind:checked={showPadding} />
+					Show Padding
+				</label>
+			</div>
+		</div>
 		<AttributePopupControl bind:map={$map} />
 		<MapExportControl
 			bind:map={$map}
@@ -94,5 +131,17 @@
 		:global(table) {
 			width: 100%;
 		}
+	}
+
+	.settings {
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		top: 45px;
+		left: 10px;
+		z-index: 10;
+		background-color: rgba(255, 255, 255, 0.8);
+		padding: 10px;
+		font-size: medium;
 	}
 </style>

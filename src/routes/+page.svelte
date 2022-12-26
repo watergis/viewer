@@ -4,9 +4,9 @@
 	const title = 'Sveltekit Maplibre boilerplate';
 </script>
 
-<sveltekit:head>
+<svelte:head>
 	<title>{title}</title>
-</sveltekit:head>
+</svelte:head>
 
 <div>
 	<Map />

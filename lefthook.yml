@@ -1,0 +1,15 @@
+# EXAMPLE USAGE
+# Refer for explanation to following link:
+# https://github.com/evilmartians/lefthook/blob/master/docs/full_guide.md
+
+pre-push:
+  commands:
+    build:
+      run: pnpm build
+
+pre-commit:
+  commands:
+    lint:
+      run: pnpm lint
+    format:
+      run: pnpm format
